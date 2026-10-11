@@ -1,0 +1,1 @@
+# qurilish-konstruksiyalari
