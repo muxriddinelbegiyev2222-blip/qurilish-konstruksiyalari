@@ -28,7 +28,7 @@ jobs:
         shell: cmd
         run: |
           cd src
-          pyinstaller --noconfirm --onefile --windowed --name QurilishKonstruksiyalari --hidden-import=PyQt6 --hidden-import=PyQt6.QtCore --hidden-import=PyQt6.QtGui --hidden-import=PyQt6.QtWidgets main.py
+          pyinstaller --noconfirm --onefile --windowed --name QurilishKonstruksiyalari --paths=. --hidden-import=licensing --hidden-import=activation --hidden-import=styles --hidden-import=data --hidden-import=data.chapters --hidden-import=data.topics --hidden-import=ui --hidden-import=ui.main_window --hidden-import=PyQt6 --hidden-import=PyQt6.QtCore --hidden-import=PyQt6.QtGui --hidden-import=PyQt6.QtWidgets --collect-all PyQt6 main.py
 
       - name: EXE faylni yuklash (artifact)
         uses: actions/upload-artifact@v4
