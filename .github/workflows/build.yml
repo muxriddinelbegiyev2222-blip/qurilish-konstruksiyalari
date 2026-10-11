@@ -1,1 +1,38 @@
+name: Build EXE
 
+"on":
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    name: Windows EXE yasash
+    runs-on: windows-latest
+
+    steps:
+      - name: Kodni yuklab olish
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 o'rnatish
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Kutubxonalarni o'rnatish
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: PyInstaller bilan EXE yasash
+        shell: cmd
+        run: |
+          cd src
+          pyinstaller --noconfirm --onefile --windowed --name QurilishKonstruksiyalari --hidden-import=PyQt6 --hidden-import=PyQt6.QtCore --hidden-import=PyQt6.QtGui --hidden-import=PyQt6.QtWidgets main.py
+
+      - name: EXE faylni yuklash (artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: QurilishKonstruksiyalari-Windows
+          path: src/dist/QurilishKonstruksiyalari.exe
+          retention-days: 30
